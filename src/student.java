@@ -12,7 +12,7 @@ public class student extends person{
     }
 
     public HashMap<String, HashMap<String, Integer>> getGrades() {
-        return grades;
+        return this.grades;
     }
     public void addGrade(String subjectName, HashMap<String, Integer> grade){
         this.grades.put(subjectName, grade);

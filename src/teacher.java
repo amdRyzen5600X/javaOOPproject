@@ -4,7 +4,7 @@ public class teacher extends person{
     private String subject;
 
     public ArrayList<String> getGroups() {
-        return groups;
+        return this.groups;
     }
     public void addGroup(String group){
         this.groups.add(group);
@@ -15,6 +15,6 @@ public class teacher extends person{
     }
 
     public String getSubject() {
-        return subject;
+        return this.subject;
     }
 }
