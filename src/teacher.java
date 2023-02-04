@@ -3,6 +3,16 @@ public class teacher extends person{
     private ArrayList<String> groups = new ArrayList<String>();
     private String subject;
 
+    public teacher(Integer id, String name, String surename, Integer age, String subject){
+        super.setId(id);
+        super.setName(name);
+        super.setSurename(surename);
+        super.setAge(age);
+        this.subject = subject;
+    }
+    public teacher(){
+
+    }
     public ArrayList<String> getGroups() {
         return this.groups;
     }

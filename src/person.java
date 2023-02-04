@@ -1,8 +1,10 @@
 public class person {
+    private int id;
     private String name;
     private String surename;
     private int age;
-    public void person(String name, String surename, int age){
+    public void person(Integer id, String name, String surename, int age){
+        this.id = id;
         this.name = name;
         this.surename = surename;
         this.age = age;
@@ -10,16 +12,23 @@ public class person {
     public void person(){
 
     }
+    public int getId(){
+        return this.id;
+    }
     public int getAge() {
-        return age;
+        return this.age;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getSurename() {
-        return surename;
+        return this.surename;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setAge(int age) {
