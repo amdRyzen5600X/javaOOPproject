@@ -1,3 +1,4 @@
+import java.sql.*;
 import java.util.ArrayList;
 public class teacher extends person{
     private ArrayList<String> groups = new ArrayList<String>();
@@ -27,4 +28,48 @@ public class teacher extends person{
     public String getSubject() {
         return this.subject;
     }
+    public static teacher getTeacherFromDatabase(int student_id){
+        Connection con = null;
+        teacher temp = new teacher();
+        try {
+            con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres");
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM student WHERE student_id = %d", student_id));
+            while(rs.next()){
+                temp.setId(rs.getInt("teacher_id"));
+                temp.setName(rs.getString("teacher_name"));
+                temp.setSurename(rs.getString("teacher_surename"));
+                temp.setAge(rs.getInt("age"));
+                temp.setSubject(rs.getString("subject"));
+                temp.addGroup(rs.getString("groups"));
+            }
+            return temp;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public void uploadTeacher(teacher teacherToUpload){
+        Connection con = null;
+        try {
+            con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres");
+            Statement stmt = con.createStatement();
+            int a = stmt.executeUpdate(String.format(
+                            "INSERT INTO student (teacher_name, teacher_surename, age, subject, groups) VALUES (%s, %s, %d, %s, %s)",
+                            teacherToUpload.getName(),
+                            teacherToUpload.getSurename(),
+                            teacherToUpload.getAge(),
+                            teacherToUpload.getSubject(),
+                            teacherToUpload.getGroups()
+                    )
+            );
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 }
