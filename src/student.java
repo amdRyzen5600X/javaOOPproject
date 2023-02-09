@@ -32,7 +32,7 @@ public class student extends person{
         this.grades.put(subjectName, grade);
     }
 
-    public static student getStudentFromDatabase(int student_id){
+    public static student getStudentFromDatabase(int student_id) throws SQLException {
         Connection con = null;
         student temp = new student();
         try {
@@ -46,6 +46,7 @@ public class student extends person{
                 temp.setAge(rs.getInt("age"));
                 temp.setGroup(rs.getString("student_group"));
             }
+            con.close();
             return temp;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -53,7 +54,7 @@ public class student extends person{
 
     }
 
-    public void uploadStudent(@NotNull student studentToUpload){
+    public void uploadStudent(@NotNull student studentToUpload) throws SQLException{
         Connection con = null;
         try {
             con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres");
@@ -66,6 +67,7 @@ public class student extends person{
                     studentToUpload.getGroup()
             )
             );
+            con.close();
 
 
         } catch (SQLException e) {

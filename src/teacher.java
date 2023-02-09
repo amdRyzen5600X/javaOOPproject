@@ -28,7 +28,7 @@ public class teacher extends person{
     public String getSubject() {
         return this.subject;
     }
-    public static teacher getTeacherFromDatabase(int student_id){
+    public static teacher getTeacherFromDatabase(int student_id) throws SQLException{
         Connection con = null;
         teacher temp = new teacher();
         try {
@@ -43,6 +43,7 @@ public class teacher extends person{
                 temp.setSubject(rs.getString("subject"));
                 temp.addGroup(rs.getString("groups"));
             }
+            con.close();
             return temp;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -50,7 +51,7 @@ public class teacher extends person{
 
     }
 
-    public void uploadTeacher(teacher teacherToUpload){
+    public void uploadTeacher(teacher teacherToUpload) throws SQLException{
         Connection con = null;
         try {
             con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres");
@@ -64,6 +65,7 @@ public class teacher extends person{
                             teacherToUpload.getGroups()
                     )
             );
+            con.close();
 
 
         } catch (SQLException e) {
